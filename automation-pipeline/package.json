@@ -1,0 +1,10 @@
+{
+  "name": "automation-pipeline",
+  "version": "1.0.0",
+  "description": "Automation pipeline for agentic arcade game generation",
+  "main": "design-agent.js",
+  "scripts": {
+    "start": "node design-agent.js"
+  },
+  "dependencies": {}
+}

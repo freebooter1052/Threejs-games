@@ -1,0 +1,30 @@
+name: Daily Arcade Automation
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs daily at midnight
+  workflow_dispatch: # Allows manual trigger
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          cd automation-pipeline
+          npm install
+
+      - name: Run Automation Pipeline
+        run: |
+          cd automation-pipeline
+          node design-agent.js
+          node run-coder.js
+          node update-manifest.js
