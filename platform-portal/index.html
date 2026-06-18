@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>AGENT.ARCADE | Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Geist:wght@700;800&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <!-- Shared Component Configuration -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#e5e1e4",
+                        "surface": "#131315",
+                        "inverse-primary": "#494bd6",
+                        "tertiary": "#ffb783",
+                        "tertiary-fixed": "#ffdcc5",
+                        "surface-container-lowest": "#0e0e10",
+                        "secondary": "#d2bbff",
+                        "on-tertiary": "#4f2500",
+                        "on-error-container": "#ffdad6",
+                        "primary": "#c0c1ff",
+                        "surface-container": "#201f22",
+                        "on-primary-fixed-variant": "#2f2ebe",
+                        "on-tertiary-fixed": "#301400",
+                        "on-primary-container": "#0d0096",
+                        "on-tertiary-fixed-variant": "#703700",
+                        "outline-variant": "#464554",
+                        "primary-container": "#8083ff",
+                        "background": "#131315",
+                        "surface-bright": "#39393b",
+                        "error": "#ffb4ab",
+                        "on-surface-variant": "#c7c4d7",
+                        "tertiary-fixed-dim": "#ffb783",
+                        "on-error": "#690005",
+                        "surface-container-highest": "#353437",
+                        "secondary-fixed-dim": "#d2bbff",
+                        "error-container": "#93000a",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "secondary-container": "#6001d1",
+                        "surface-dim": "#131315",
+                        "on-secondary-fixed": "#25005a",
+                        "on-secondary-container": "#c9aeff",
+                        "inverse-surface": "#e5e1e4",
+                        "primary-fixed": "#e1e0ff",
+                        "surface-variant": "#353437",
+                        "secondary-fixed": "#eaddff",
+                        "tertiary-container": "#d97721",
+                        "surface-tint": "#c0c1ff",
+                        "on-primary": "#1000a9",
+                        "on-primary-fixed": "#07006c",
+                        "on-secondary-fixed-variant": "#5a00c6",
+                        "outline": "#908fa0",
+                        "on-background": "#e5e1e4",
+                        "surface-container-high": "#2a2a2c",
+                        "inverse-on-surface": "#313032",
+                        "on-tertiary-container": "#452000",
+                        "on-secondary": "#3f008e",
+                        "surface-container-low": "#1c1b1d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "stack-gap": "12px",
+                        "margin-mobile": "16px",
+                        "container-max": "1440px",
+                        "gutter": "24px",
+                        "margin-desktop": "48px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Geist"],
+                        "title-md": ["Inter"],
+                        "display-xl-mobile": ["Geist"],
+                        "display-xl": ["Geist"],
+                        "body-base": ["Inter"],
+                        "headline-lg": ["Geist"],
+                        "label-mono": ["JetBrains Mono"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "title-md": ["20px", {"lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "display-xl-mobile": ["36px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800"}],
+                        "display-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800"}],
+                        "body-base": ["16px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-mono": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "body-sm": ["14px", {"lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #020617; color: #e5e1e4; overflow-x: hidden; }
+        .glass-panel { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .active-gradient { background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); }
+        .neon-glow:hover { box-shadow: 0 0 20px rgba(99, 102, 241, 0.4); border-color: rgba(99, 102, 241, 0.5); }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        
+        /* Modal scroll hide */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(0.98); }
+        }
+        .pulse-accent { animation: pulse-slow 3s infinite ease-in-out; }
+    </style>
+</head>
+<body class="font-body-base text-body-base">
+<!-- Global Layout Shell -->
+<div class="flex min-h-screen bg-surface-container-lowest">
+    <!-- SideNavBar -->
+    <aside class="hidden md:flex flex-col h-screen w-64 border-r border-outline-variant bg-surface sticky top-0 z-40">
+        <div class="flex flex-col h-full py-6 px-4">
+            <!-- Brand Header -->
+            <div class="mb-10 px-2">
+                <h1 class="font-headline-lg text-headline-lg font-bold tracking-tighter text-on-surface">AGENT.ARCADE</h1>
+                <div class="flex items-center gap-2 mt-1">
+                    <span class="w-2 h-2 rounded-full bg-tertiary-container animate-pulse"></span>
+                    <span class="font-label-mono text-label-mono text-tertiary uppercase tracking-widest">LIVE CRON OPERATIONAL</span>
+                </div>
+            </div>
+            <!-- Navigation Tabs -->
+            <nav class="flex-1 space-y-1">
+                <a class="flex items-center gap-3 px-3 py-3 rounded-lg text-primary font-bold border-l-2 border-primary bg-primary/5 transition-all duration-200" href="#" id="nav-all-games">
+                    <span class="material-symbols-outlined">sports_esports</span>
+                    <span>All Games</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-3 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all duration-200 active:scale-95" href="#" id="nav-latest-drop">
+                    <span class="material-symbols-outlined">auto_awesome</span>
+                    <span>Latest Drop</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-3 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all duration-200 active:scale-95" href="#" id="nav-leaderboard">
+                    <span class="material-symbols-outlined">leaderboard</span>
+                    <span>Leaderboards</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-3 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all duration-200 active:scale-95" href="#" id="nav-system-logs">
+                    <span class="material-symbols-outlined">terminal</span>
+                    <span>System Logs</span>
+                </a>
+            </nav>
+            <!-- Footer Navigation -->
+            <div class="pt-6 border-t border-outline-variant space-y-1">
+                <a class="flex items-center gap-3 px-3 py-3 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all duration-200" href="#">
+                    <span class="material-symbols-outlined">settings</span>
+                    <span>Settings</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-3 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all duration-200" href="#">
+                    <span class="material-symbols-outlined">help_center</span>
+                    <span>Support</span>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 flex flex-col min-w-0">
+        <!-- TopAppBar -->
+        <header class="flex justify-between items-center px-gutter w-full sticky top-0 z-50 h-16 bg-surface/30 backdrop-blur-md border-b border-white/5">
+            <div class="flex items-center gap-6">
+                <div class="relative w-72">
+                    <span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant text-sm">search</span>
+                    <input id="search-input" class="w-full bg-surface-container-highest/50 border border-white/10 rounded-full py-1.5 pl-10 pr-4 text-sm font-body-base focus:ring-1 focus:ring-primary focus:outline-none transition-all" placeholder="Search system games..." type="text"/>
+                </div>
+                <div class="hidden lg:flex items-center gap-4">
+                    <span class="font-label-mono text-label-mono text-on-surface-variant tracking-widest" id="digital-clock">00:00:00</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-6">
+                <div class="bg-primary/10 border border-primary/20 px-4 py-1.5 rounded-full flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[16px] text-primary">timer</span>
+                    <span id="countdown-timer" class="font-label-mono text-label-mono text-primary">00:00:00 UNTIL DROP</span>
+                </div>
+                <div class="flex items-center gap-4 text-on-surface-variant">
+                    <button class="hover:text-primary transition-colors active:scale-90">
+                        <span class="material-symbols-outlined">notifications</span>
+                    </button>
+                    <button class="hover:text-primary transition-colors active:scale-90">
+                        <span class="material-symbols-outlined">account_circle</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="p-gutter space-y-gutter max-w-container-max mx-auto w-full">
+            <!-- Hero Section Mount Point -->
+            <div id="hero-container"></div>
+
+            <!-- Filter Bar & Info -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 py-4">
+                <div id="filters-container" class="flex flex-wrap gap-2"></div>
+                <div class="text-on-surface-variant font-label-mono text-label-mono">
+                    SHOWING <span id="games-count" class="text-primary font-bold">0</span> OPERATIONAL MODULES
+                </div>
+            </div>
+
+            <!-- Game Grid Mount Point -->
+            <div id="games-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </div>
+    </main>
+</div>
+
+<!-- PLAY NOW Modal -->
+<div class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 md:p-8" id="game-modal">
+    <div class="absolute inset-0 bg-black/80 backdrop-blur-xl transition-opacity duration-300" id="modal-overlay"></div>
+    <div class="relative w-full max-w-6xl h-[92vh] bg-surface rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row border border-white/10">
+        <!-- Close Button -->
+        <button class="absolute top-4 right-4 z-[110] bg-surface-container/80 backdrop-blur-md p-2 rounded-full text-on-surface hover:text-primary transition-colors" id="close-modal-btn">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+
+        <!-- Game Main Area -->
+        <div class="flex-1 bg-black relative flex items-center justify-center group overflow-hidden">
+            <!-- Simulation/Loading indicator -->
+            <div class="absolute inset-0 flex flex-col items-center justify-center gap-6 bg-surface z-10 transition-opacity duration-300" id="game-placeholder">
+                <div class="relative w-24 h-24">
+                    <div class="absolute inset-0 rounded-full border-4 border-primary/20 border-t-primary animate-spin"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary text-4xl animate-pulse">sports_esports</span>
+                    </div>
+                </div>
+                <div class="text-center space-y-1">
+                    <h4 class="font-headline-lg text-xl text-white uppercase tracking-widest" id="modal-game-title">LOADING ENGINE</h4>
+                    <p class="font-label-mono text-label-mono text-on-surface-variant">ESTABLISHING SECURE CONNECTION...</p>
+                </div>
+            </div>
+
+            <!-- Live Game Iframe -->
+            <iframe id="game-iframe" class="w-full h-full border-none opacity-0 transition-opacity duration-500 z-0" src=""></iframe>
+        </div>
+
+        <!-- Game Sidebar / Controls -->
+        <div class="w-full md:w-80 h-full bg-surface-container flex flex-col border-l border-white/5 p-6 overflow-y-auto no-scrollbar">
+            <div class="space-y-8 flex-1">
+                <div>
+                    <h4 class="font-label-mono text-label-mono text-primary uppercase mb-4 tracking-widest">SYSTEM CONTROLS</h4>
+                    <div id="modal-controls" class="grid grid-cols-2 gap-3"></div>
+                    <div id="modal-mouse-controls" class="mt-4 flex items-center gap-3 bg-surface p-3 rounded-lg border border-white/5">
+                        <span class="material-symbols-outlined text-secondary">mouse</span>
+                        <span id="modal-mouse-text" class="text-[11px] text-on-surface-variant uppercase">Mouse controls loading...</span>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-label-mono text-label-mono text-primary uppercase mb-4 tracking-widest">SESSION DATA</h4>
+                    <div id="modal-session-data" class="space-y-3"></div>
+                </div>
+            </div>
+            <div class="pt-8">
+                <button class="w-full bg-error/10 hover:bg-error/20 border border-error/30 text-error py-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-2 mb-3">
+                    <span class="material-symbols-outlined text-[16px]">bug_report</span>
+                    REPORT BUG TO AGENT
+                </button>
+                <button id="fullscreen-btn" class="w-full bg-surface-container-highest hover:text-primary py-3 rounded-lg text-xs font-bold transition-all">
+                    FULLSCREEN MODE
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>

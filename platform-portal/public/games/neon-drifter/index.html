@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Drifter | AGENT.ARCADE</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #05050a;
+            font-family: 'Courier New', Courier, monospace;
+            color: #c0c1ff;
+        }
+        #canvas-container {
+            width: 100vw;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        .hud {
+            position: absolute;
+            z-index: 10;
+            pointer-events: none;
+            padding: 20px;
+            box-sizing: border-box;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+        .hud-panel {
+            background: rgba(19, 19, 21, 0.7);
+            border: 1px solid rgba(192, 193, 255, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            backdrop-filter: blur(5px);
+        }
+        .hud-title {
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: #8083ff;
+            margin-bottom: 5px;
+        }
+        .hud-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(128, 131, 255, 0.8);
+        }
+        .instructions {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            pointer-events: none;
+            text-align: center;
+            background: rgba(19, 19, 21, 0.8);
+            border: 1px solid rgba(192, 193, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: #e5e1e4;
+        }
+        .key {
+            background: #201f22;
+            border: 1px solid #c0c1ff;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin: 0 3px;
+            display: inline-block;
+            font-weight: bold;
+        }
+    </style>
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <div class="hud">
+        <div class="hud-panel">
+            <div class="hud-title">VELOCITY</div>
+            <div class="hud-value" id="speed-val">0 KM/H</div>
+        </div>
+        <div class="hud-panel" style="text-align: right;">
+            <div class="hud-title">DRIFT COEFFICIENT</div>
+            <div class="hud-value" id="drift-val">0.00x</div>
+        </div>
+    </div>
+    
+    <div class="instructions">
+        Use <span class="key">W</span>/<span class="key">S</span> to change speed, <span class="key">A</span>/<span class="key">D</span> to steer, and <span class="key">SPACE</span> to drift.
+    </div>
+
+    <div id="canvas-container"></div>
+
+    <script>
+        // Setup Three.js Scene
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(0x05050a, 0.015);
+
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 5, 15);
+        camera.lookAt(0, 2, -10);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setClearColor(scene.fog.color);
+        container.appendChild(renderer.domElement);
+
+        // Lights
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+        scene.add(ambientLight);
+
+        const dirLight = new THREE.DirectionalLight(0xc0c1ff, 0.8);
+        dirLight.position.set(5, 15, 5);
+        scene.add(dirLight);
+
+        // Synthwave Floor Grid
+        const gridHelper = new THREE.GridHelper(200, 40, 0x8083ff, 0x39393b);
+        gridHelper.position.y = -0.5;
+        scene.add(gridHelper);
+
+        const gridHelper2 = new THREE.GridHelper(200, 40, 0x8083ff, 0x39393b);
+        gridHelper2.position.y = -0.5;
+        gridHelper2.position.z = -200;
+        scene.add(gridHelper2);
+
+        // Neon Mountains (Triangles)
+        const mountains = [];
+        function createMountain(x, z, scaleY, color) {
+            const geom = new THREE.ConeGeometry(15, scaleY, 4);
+            const mat = new THREE.MeshBasicMaterial({
+                color: color,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.3
+            });
+            const cone = new THREE.Mesh(geom, mat);
+            cone.position.set(x, scaleY / 2 - 0.5, z);
+            scene.add(cone);
+            mountains.push(cone);
+        }
+
+        // Generate mountains along sides
+        for (let i = 0; i < 15; i++) {
+            const zPos = -i * 30;
+            createMountain(-35 - Math.random() * 15, zPos, 20 + Math.random() * 25, 0x6366f1);
+            createMountain(35 + Math.random() * 15, zPos, 20 + Math.random() * 25, 0x8b5cf6);
+        }
+
+        // Star particles
+        const starGeo = new THREE.BufferGeometry();
+        const starCount = 300;
+        const starPositions = new Float32Array(starCount * 3);
+
+        for (let i = 0; i < starCount * 3; i += 3) {
+            starPositions[i] = (Math.random() - 0.5) * 150;
+            starPositions[i + 1] = Math.random() * 80 + 10;
+            starPositions[i + 2] = -Math.random() * 200;
+        }
+
+        starGeo.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+        const starMat = new THREE.PointsMaterial({
+            color: 0xffffff,
+            size: 0.3,
+            transparent: true,
+            opacity: 0.8
+        });
+        const starPoints = new THREE.Points(starGeo, starMat);
+        scene.add(starPoints);
+
+        // Player Ship / Car
+        const shipGroup = new THREE.Group();
+        const shipBodyGeom = new THREE.ConeGeometry(1.2, 3, 4);
+        shipBodyGeom.rotateX(Math.PI / 2);
+        const shipMat = new THREE.MeshStandardMaterial({
+            color: 0xffffff,
+            wireframe: true,
+            roughness: 0.1,
+            metalness: 0.9
+        });
+        const shipBody = new THREE.Mesh(shipBodyGeom, shipMat);
+        shipGroup.add(shipBody);
+
+        // Ship Wing lines
+        const wingGeom = new THREE.BoxGeometry(3, 0.1, 0.8);
+        const wing = new THREE.Mesh(wingGeom, shipMat);
+        wing.position.set(0, -0.2, -0.5);
+        shipGroup.add(wing);
+
+        // Thruster glow
+        const thrusterGeom = new THREE.SphereGeometry(0.4, 8, 8);
+        const thrusterMat = new THREE.MeshBasicMaterial({ color: 0xffb783 });
+        const thruster = new THREE.Mesh(thrusterGeom, thrusterMat);
+        thruster.position.set(0, 0, 1.6);
+        shipGroup.add(thruster);
+
+        shipGroup.position.set(0, 1, 0);
+        scene.add(shipGroup);
+
+        // Key states
+        const keys = { w: false, s: false, a: false, d: false, space: false };
+        window.addEventListener('keydown', (e) => {
+            const key = e.key.toLowerCase();
+            if (key === ' ') keys.space = true;
+            if (key in keys) keys[key] = true;
+        });
+        window.addEventListener('keyup', (e) => {
+            const key = e.key.toLowerCase();
+            if (key === ' ') keys.space = false;
+            if (key in keys) keys[key] = false;
+        });
+
+        // App variables
+        let speed = 40.0; // Current base speed
+        let maxSpeed = 180.0;
+        let driftCoeff = 0.0;
+        let tilt = 0.0;
+        let steer = 0.0;
+
+        const clock = new THREE.Clock();
+
+        // Animation Loop
+        function animate() {
+            requestAnimationFrame(animate);
+            const delta = clock.getDelta();
+
+            // Handling inputs
+            if (keys.w) {
+                speed = Math.min(speed + 50 * delta, maxSpeed);
+            } else if (keys.s) {
+                speed = Math.max(speed - 60 * delta, 0);
+            } else {
+                // Decay back to cruise speed
+                if (speed > 40) speed -= 15 * delta;
+                if (speed < 40) speed += 15 * delta;
+            }
+
+            // Steer input
+            if (keys.a) {
+                steer = Math.min(steer + 4 * delta, 1.2);
+                tilt = Math.min(tilt + 3 * delta, 0.4);
+            } else if (keys.d) {
+                steer = Math.max(steer - 4 * delta, -1.2);
+                tilt = Math.max(tilt - 3 * delta, -0.4);
+            } else {
+                steer *= 0.9; // Return to center
+                tilt *= 0.9;
+            }
+
+            // Drift input
+            if (keys.space && Math.abs(steer) > 0.2) {
+                driftCoeff = Math.min(driftCoeff + 2 * delta, 1.5);
+                tilt *= 1.8; // Exaggerate tilt
+            } else {
+                driftCoeff = Math.max(driftCoeff - 3 * delta, 0.0);
+            }
+
+            // Apply steering rotation and displacement
+            shipGroup.position.x += steer * speed * 0.1 * delta;
+            shipGroup.position.x = Math.max(Math.min(shipGroup.position.x, 25), -25);
+            
+            // Ship visual tilt
+            shipGroup.rotation.z = tilt;
+            shipGroup.rotation.y = -steer * 0.3 + (keys.space ? -steer * 0.4 : 0);
+
+            // Move the grid scroll speed
+            const distance = speed * 1.5 * delta;
+            gridHelper.position.z += distance;
+            gridHelper2.position.z += distance;
+
+            // Recenter grid blocks to loop infinitely
+            if (gridHelper.position.z >= 200) gridHelper.position.z -= 400;
+            if (gridHelper2.position.z >= 200) gridHelper2.position.z -= 400;
+
+            // Move mountains
+            mountains.forEach(mt => {
+                mt.position.z += distance;
+                if (mt.position.z > 20) {
+                    mt.position.z = -400 - Math.random() * 50;
+                }
+            });
+
+            // Ship jet flicker
+            thruster.scale.setScalar(0.8 + Math.random() * 0.4 + (speed / maxSpeed) * 0.6);
+
+            // Camera dynamic spring
+            camera.position.x = shipGroup.position.x * 0.6;
+            camera.position.y = 5 - (speed / maxSpeed) * 0.5;
+            camera.position.z = 15 + (driftCoeff * 1.5);
+            camera.lookAt(shipGroup.position.x * 0.8, 1.5, -5);
+
+            // Update UI HUD
+            document.getElementById('speed-val').textContent = `${Math.round(speed * 1.6)} KM/H`;
+            document.getElementById('drift-val').textContent = `${driftCoeff.toFixed(2)}x`;
+
+            renderer.render(scene, camera);
+        }
+
+        // Window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Run
+        animate();
+    </script>
+</body>
+</html>

@@ -1,1 +1,178 @@
-[]
+[
+  {
+    "id": "neon-drifter",
+    "title": "Neon Drifter",
+    "category": "RACING",
+    "description": "Ascend the sprawling vertical circuits of Nova City. Experience zero-gravity drifts, hyper-speed bypasses, and an adaptive synthwave soundtrack that reacts to every turn.",
+    "released": "Today",
+    "date": "2026-06-19",
+    "status": "OPERATIONAL",
+    "tags": ["NEW DROP", "TRENDING"],
+    "activePlayers": "8.5k",
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuAJRAldX7W-aobfhp5lihWA1Ox2Iv9lx-FnMHEKIFQsWL4hgO-GvR_uOpJsn2MczRU7mcr6aFT-RYbngLgK5Jg0n7tkr7ik0DzE-Q4PxwSRCUlyjKpcrz6ETQ-l8toeN77qe2Ks495OP4Eu3WtukS6nH5TJXBi0JwCR74Ge0ysbg6os86ObPWoiVK_6Xl9lPk0N3q1nEbNKPQd_kTbTJzv8n9oe-dkeRAr8vPVnpY5uEYCBGWT9avyr4aFzIBbWQzq6ILcRaxjSaD2n",
+    "controls": {
+      "keys": [
+        {"key": "W", "action": "Accelerate"},
+        {"key": "S", "action": "Brake"},
+        {"key": "A / D", "action": "Steer"},
+        {"key": "SPACE", "action": "Drift"}
+      ],
+      "mouse": "Mouse to Look / Aim"
+    },
+    "sessionData": {
+      "latency": "12ms",
+      "resolution": "4K ADAPTIVE",
+      "rank": "#42 LOCAL"
+    }
+  },
+  {
+    "id": "orbital-defense",
+    "title": "Orbital Defense",
+    "category": "SPACE STRATEGY",
+    "description": "Defend the planetary core by orbiting defense stations and firing plasma beams at descending asteroids. Place interceptors and shields strategically.",
+    "released": "Oct 12, 2023",
+    "date": "2023-10-12",
+    "status": "OPERATIONAL",
+    "tags": [],
+    "activePlayers": "4.2k",
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuAoOut-8Ks10jFgXAOp6MId1roWpzARdR-e9fDAnqIN6WQKUeQ1U4XpqRZ0e1aJjS3s3fT1LqzwB8wWDSQb8D6b3rCwAPZjRbz7RRxWwvabynq_b53pePwKDzulXJwH8tr218uMQJA6wZZc1xS2sMo_JEEBjCwk2dYMhcojPsJWJnGGHwT_QX220jnCINu5MyBA5az7sRiP9OKFILZf6NGvJlieJwFYrVCj7eubB-5EEoN3KrzO2l--516GeUzOysT8lUHV_EK2deGu",
+    "controls": {
+      "keys": [
+        {"key": "A / D", "action": "Rotate Shield"},
+        {"key": "L-CLICK", "action": "Fire Plasma Cannon"},
+        {"key": "1 - 3", "action": "Deploy Sentry Hub"}
+      ],
+      "mouse": "Cursor aiming for orbital weaponry"
+    },
+    "sessionData": {
+      "latency": "15ms",
+      "resolution": "1440p NATIVE",
+      "rank": "#12 GLOBAL"
+    }
+  },
+  {
+    "id": "void-runner",
+    "title": "Void Runner",
+    "category": "ACTION PLATFORMER",
+    "description": "Speedrun through glitching red platforms in an empty dark void. Time your gravity leaps and dash through temporal portals.",
+    "released": "Sep 28, 2023",
+    "date": "2023-09-28",
+    "status": "TRENDING",
+    "tags": ["TRENDING"],
+    "activePlayers": "1.8k",
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuCeB25JtlLfptmnvt1vOE8HoWPMrDXJKYJkMNR04lhXcVp9WgzkBzCq_-lMheAbeeafOtiaPVs6E-IKz6rOKoszp-de7og6dsesjWpsPH_Iqidj_0TN2a_jPWn5Kgw9YStOEr0bEFxFfYMVi7xPaC09_0uj98yXW3xvJqlcQkaTENlR2B6Xy9m3okk0Gn1Ms-9qHlVMa7RENeZJsVgymqEQugq5Bd2dRzXhHOYLNYCh9H_c2l7JKObuXRlbmEwGtszhIb3Hh4xi7V9I",
+    "controls": {
+      "keys": [
+        {"key": "SPACE", "action": "Jump / Double Jump"},
+        {"key": "A / D", "action": "Run Left / Right"},
+        {"key": "SHIFT", "action": "Dash / Phase"}
+      ],
+      "mouse": "Mouse click to trigger portal warp"
+    },
+    "sessionData": {
+      "latency": "8ms",
+      "resolution": "1080p NATIVE",
+      "rank": "#88 REGIONAL"
+    }
+  },
+  {
+    "id": "gravity-shift",
+    "title": "Gravity Shift",
+    "category": "PHYSICS PUZZLER",
+    "description": "Solve elaborate clockwork mechanical puzzles. Direct rolling golden marbles and align glass lenses under zero gravity.",
+    "released": "Aug 15, 2023",
+    "date": "2023-08-15",
+    "status": "OPERATIONAL",
+    "tags": [],
+    "activePlayers": "940",
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuBkzryK0zObspGOr020WOjh-5lRzFlL7pGcD6cM3RZ90YghcuCIvWfzL5m3MWWr96VnSNij6XEmf_LX4b0Y2HTYx956z7OMaiU0Vp0fifl-_KK47edULYkesRXiWMzA9NGpv7qCp7kdDrE4oifzq0vvJ6sUjbjNOnrYRdBxE8ogwKybNwRjp78pf0pfDao8Y9KQ3McdlTiS9yG3Ckgv08n3ViafOLqvLy-PwWqcvwEdkcOsA4TR8dF6DYc3Ze_ovvtl4pY6VQkQHjaW",
+    "controls": {
+      "keys": [
+        {"key": "Q / E", "action": "Rotate Chamber"},
+        {"key": "R", "action": "Reset Stage"},
+        {"key": "SPACE", "action": "Invert Gravity"}
+      ],
+      "mouse": "Drag and drop brass dials to align"
+    },
+    "sessionData": {
+      "latency": "18ms",
+      "resolution": "1080p ADAPTIVE",
+      "rank": "#200 LOCAL"
+    }
+  },
+  {
+    "id": "circuit-breaker",
+    "title": "Circuit Breaker",
+    "category": "TOWER DEFENSE",
+    "description": "Deploy security programs along motherboard circuit paths to block shadow virus sparks from corrupting the CPU core.",
+    "released": "Jul 02, 2023",
+    "date": "2023-07-02",
+    "status": "OPERATIONAL",
+    "tags": [],
+    "activePlayers": "3.1k",
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuAmm1b2W6vbjLHPMrut-vfuGyXlCmLC1DhxES0ltR_Waj80iKyBx-LO3UlhdOE9vxYHm_ARFgm_Cixy4QcS_1L8WIEXnvGYqTq5YYeUBb73rzCNwdym8wcyZ6INH4MQGju4UmJSZHf6bENEcPIiWAP_tdcmizih8gChPIp3ufW6OJknYyTj2o1MPxcxx1sFXdDt_JTOWlRoEUGBH_eV1yz56KPn4_-36cVFnCuVCXmT0x8DSC5ciH276r_hDZmLq9LHK3l1tEB5c_zn",
+    "controls": {
+      "keys": [
+        {"key": "1 - 5", "action": "Select Node Turret"},
+        {"key": "ESC", "action": "Cancel Placement"},
+        {"key": "SPACE", "action": "Fast-Forward Wave"}
+      ],
+      "mouse": "Point and left-click to construct"
+    },
+    "sessionData": {
+      "latency": "10ms",
+      "resolution": "1080p NATIVE",
+      "rank": "#15 REGIONAL"
+    }
+  },
+  {
+    "id": "echo-star",
+    "title": "Echo Star",
+    "category": "EXPLORATION",
+    "description": "Steer a solar cruiser through beautiful mint and lavender nebula ripples generated by a giant pulsing neutron star.",
+    "released": "May 19, 2023",
+    "date": "2023-05-19",
+    "status": "OPERATIONAL",
+    "tags": [],
+    "activePlayers": "5.6k",
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuBJ8J5-7_pf-ngsIv6E9k7eDxwmVNYFmY0zv_SL78mJOjUoBUEGkG-T3VvmZyJxSfc-_wF9gBTfZQP8S9Pq020nKGf_bxTTgvhyPi1lPoAxWVmsfT0eFZDfxlnVGwc4sz2NkmxIUzyeoV_MJ27h8DilyQ5bQRw_yT3wFrooBxwDcqWnOJAyQZRA8FAcOJiu9HT-yaXn4JY9rlFoiuK-z_fSNQy2cfSwsTvZHTm4IwzCv8MePgGUQjzDf3Fjb8qPh7pfITlgS-MM5T8M",
+    "controls": {
+      "keys": [
+        {"key": "W / S", "action": "Pitch Up / Down"},
+        {"key": "A / D", "action": "Yaw Left / Right"},
+        {"key": "SHIFT", "action": "Engage Warp Drive"}
+      ],
+      "mouse": "Free look view camera"
+    },
+    "sessionData": {
+      "latency": "24ms",
+      "resolution": "4K DYNAMIC",
+      "rank": "#5 GLOBAL"
+    }
+  },
+  {
+    "id": "neon-tactics",
+    "title": "Neon Tactics",
+    "category": "TACTICAL RPG",
+    "description": "Command a squadron of holographic warriors on a shifting neon-grid chess battlefield. Coordinate flank maneuvers and grid overloads.",
+    "released": "Apr 05, 2023",
+    "date": "2023-04-05",
+    "status": "OPERATIONAL",
+    "tags": [],
+    "activePlayers": "2.2k",
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuBE7uJDrPB8slQUd16PLu_8lMn85LZU00p16SXoB6vVPPpT8g5QaKkHCcankmF4rkWJh0jgqPPJ4JaweOQ9bomPkjEegzRgUlGQAKKG7IVXxzBm32QVjp0sXhv8S9fxLJBDTfSM7StjscL3TPivsXrtMosgygqBWWupmeDmMjYEqMDxwW5RakRHcVfWd1-3Mpe93vURNJ3RdnrInyfBqkyuaI5jz8y8m9Zw1sOt-DrHdApCLD8buvvYruckRdVKCwSy9GSb5PCz-FzH",
+    "controls": {
+      "keys": [
+        {"key": "TAB", "action": "Cycle Units"},
+        {"key": "SPACE", "action": "End Turn"},
+        {"key": "Q / E", "action": "Rotate Board"}
+      ],
+      "mouse": "Select hex tiles and issue orders"
+    },
+    "sessionData": {
+      "latency": "14ms",
+      "resolution": "1080p NATIVE",
+      "rank": "#30 REGIONAL"
+    }
+  }
+]
