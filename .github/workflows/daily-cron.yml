@@ -1,30 +1,58 @@
-name: Daily Arcade Automation
+name: Autonomous Daily Game Loop
 
 on:
   schedule:
-    - cron: '0 0 * * *' # Runs daily at midnight
-  workflow_dispatch: # Allows manual trigger
+    - cron: '0 2 * * *' # Fires automatically every single day at 2:00 AM
+  workflow_dispatch: # Allows manual developer overrides to test execution
 
 jobs:
-  run-pipeline:
+  generate-and-build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout Codebase
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: Setup Node Environment
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: Install dependencies
+      - name: Install System Dependencies
         run: |
-          cd automation-pipeline
-          npm install
+          cd automation-pipeline && npm install
+          npx playwright install --with-deps
 
-      - name: Run Automation Pipeline
+      - name: Install threejs-game-skills Packaged Dependency
         run: |
-          cd automation-pipeline
-          node design-agent.js
-          node run-coder.js
-          node update-manifest.js
+          git clone https://github.com/majidmanzarpour/threejs-game-skills.git game-skills
+          cd game-skills && npm install && ./install.sh --codex --force
+
+      - name: Execute Step 1 - The Brain (Generate Idea)
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: node automation-pipeline/design-agent.js
+
+      - name: Execute Step 2 - The Muscle (Code Game & Run Built-in QA)
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: node automation-pipeline/run-coder.js
+
+      - name: Package Build to Portal
+        run: |
+          GAME_DATE=$(date +%Y-%m-%d)
+          TARGET_DIR="platform-portal/public/games/game-$GAME_DATE"
+          mkdir -p $TARGET_DIR
+          
+          # Move compiled client assets from the agent workspace to portal directory
+          cp -r automation-pipeline/workspace/dist/* $TARGET_DIR/
+          
+          # Append metadata to global portal registry manifest
+          node automation-pipeline/update-manifest.js --date $GAME_DATE
+
+      - name: Commit Game Assets to Main Site
+        run: |
+          git config --global user.name "Arcade Orchestrator Agent"
+          git config --global user.email "autonomous-agent@arcade.io"
+          git add platform-portal/
+          git commit -m "Automated Drop: Deployed dynamic game drop for $(date +%Y-%m-%d)"
+          git push

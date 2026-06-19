@@ -1,0 +1,14 @@
+# Environment secrets
+.env
+
+# Dependencies
+node_modules/
+platform-portal/node_modules/
+automation-pipeline/node_modules/
+
+# Temporary pipelines assets and workspaces
+automation-pipeline/current-idea.json
+automation-pipeline/workspace/
+
+# Compiled portal build outputs
+platform-portal/dist/

@@ -3,8 +3,13 @@
   "version": "1.0.0",
   "description": "Automation pipeline for agentic arcade game generation",
   "main": "design-agent.js",
+  "type": "module",
   "scripts": {
     "start": "node design-agent.js"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@ai-sdk/google": "^3.0.0",
+    "ai": "^6.0.0",
+    "zod": "^3.22.4"
+  }
 }
